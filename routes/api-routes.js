@@ -42,6 +42,15 @@ module.exports = function (app) {
             });
     });
 
-
+    app.get("/articles", function(req, res){
+        Article.find({}, function(error, doc){
+            if (error){
+                console.log(error);
+            }
+            else {
+                res.json(doc);
+            }
+        })
+    })
 
 }
