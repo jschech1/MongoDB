@@ -2,6 +2,8 @@ var request = require("request");
 var cheerio = require("cheerio");
 var db = require("../models");
 
+var axios = require("axios");
+
 module.exports = function (app) {
     app.get("/articles", function (req, res) {
         db.Article.find({})
@@ -52,5 +54,28 @@ module.exports = function (app) {
             }
         })
     })
+
+    app.get("/articles/:id", function(req, res){
+        Article.findOne({"_id": req.params.id})
+        .populate("note")
+        .exec(function(error, doc){
+            if (error){
+                console.log(error);
+            } else {
+                res.json(doc);
+            }
+        });
+    });
+
+    app.post("/articles/save/:id", function(req, res){
+        Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true})
+        .exec(function(err, doc){
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(doc);
+            }
+        })
+    } )
 
 }

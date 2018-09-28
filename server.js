@@ -27,7 +27,6 @@ app.set("view engine", "handlebars");
 var Note = require("./models/Note.js");
 var Article = require("./models/Article.js");
 
-// var axios = require("axios");
 
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
